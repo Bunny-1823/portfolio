@@ -1,374 +1,318 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>我的作品 2026 · 手工 Zine 作品集</title>
-  <meta name="description" content="手工 Zine / 独立杂志风格的个人作品集">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>丁紫妍 — Creative Portfolio 2026</title>
+<meta name="description" content="丁紫妍的创意作品集 — 品牌、海报、插画与视觉设计">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Italiana&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ============ 顶部指纹装饰带 ============ -->
-  <div class="fingerprint-band band-top" data-parallax aria-hidden="true">
-    <div class="fingerprint-track">
-      <span class="fingerprint-mark"></span>
-      <span class="fingerprint-mark alt"></span>
-      <span class="fingerprint-mark"></span>
-      <span class="fingerprint-mark alt"></span>
-      <span class="fingerprint-mark"></span>
-      <span class="fingerprint-mark alt"></span>
+<!-- 自定义光标 -->
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"><span>VIEW</span></div>
+<div class="scroll-progress" aria-hidden="true"></div>
+
+<!-- 纸张噪点 -->
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <a href="#top" class="nav-logo">Ding<span class="dot">.</span><small>Ziyan</small></a>
+  <div class="nav-links">
+    <a href="#works" class="nav-link"><span>01</span> 作品</a>
+    <a href="#featured" class="nav-link"><span>02</span> 特写</a>
+    <a href="#about" class="nav-link"><span>03</span> 关于</a>
+    <a href="#contact" class="nav-link"><span>04</span> 联系</a>
+  </div>
+  <a href="#contact" class="nav-cta magnetic">聊聊合作 <span>↗</span></a>
+</nav>
+
+<!-- ============ HERO：信封 ============ -->
+<section id="top" class="hero">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow reveal">[ creative designer / visual storyteller ]</p>
+      <h1 class="hero-title reveal">
+        <span class="line">Hi, I'm</span>
+        <span class="line accent">Ding Ziyan<i class="serif">.</i></span>
+      </h1>
+      <p class="hero-lead reveal">一个喜欢把想法装进盒子里的人。<br>设计、拼贴、摄影，还有一点点天马行空。</p>
+      <div class="hero-actions reveal">
+        <a href="#works" class="btn btn-dark magnetic">拆开看看 →</a>
+        <a href="#featured" class="btn-text">先看特写 <span>↗</span></a>
+      </div>
+      <div class="hero-stats reveal">
+        <div class="stat"><strong data-count="8">0</strong><span>个项目</span></div>
+        <div class="stat"><strong data-count="20">0</strong><span>张作品</span></div>
+        <div class="stat"><strong>2026</strong><span>作品集</span></div>
+      </div>
+    </div>
+
+    <!-- 可打开的信封 -->
+    <div class="envelope-wrap reveal" id="envelope">
+      <div class="env-deco env-deco-1" data-depth="0.03"><img src="assets/ip-poster.jpg" alt=""></div>
+      <div class="env-deco env-deco-2" data-depth="0.05"><img src="assets/poster-camp-1.jpg" alt=""></div>
+      <div class="env-deco env-deco-3" data-depth="0.04"><img src="assets/card-zodiac.jpg" alt=""></div>
+
+      <div class="letter" id="letter">
+        <div class="letter-head">TO: 打开这封信的人 <span>✻</span></div>
+        <p class="letter-script">Hello there!</p>
+        <p>这里装着我最近的<br>一些小小作品，<br>希望你会喜欢。</p>
+        <span class="letter-sign">— 丁紫妍</span>
+      </div>
+
+      <div class="envelope">
+        <div class="env-back"></div>
+        <div class="env-pocket"></div>
+        <div class="env-flap" id="envFlap"></div>
+        <div class="env-seal" id="envSeal">✿</div>
+      </div>
+      <p class="env-hint">← 点击火漆印章，打开信封</p>
     </div>
   </div>
 
-  <!-- ============ 导航 ============ -->
-  <nav class="nav">
-    <a href="#home" class="nav-logo">ZINE<span class="nav-logo-num">/26</span></a>
-    <ul class="nav-links">
-      <li><a href="#home">首页</a></li>
-      <li><a href="#about">关于</a></li>
-      <li><a href="#works">作品</a></li>
-      <li><a href="#detail">详情</a></li>
-      <li><a href="#contact">联系</a></li>
-    </ul>
-    <span class="nav-stamp">自制<br>刊物</span>
-  </nav>
+  <div class="scroll-cue"><span>SCROLL TO EXPLORE</span><i></i></div>
+</section>
 
-  <!-- ============ 首页 ============ -->
-  <header id="home" class="hero">
-    <div class="hero-inner">
-      <p class="hero-kicker">an independent little zine by</p>
-      <h1 class="clay-title" data-text="CREATIVE">CREATIVE</h1>
-      <h1 class="clay-title clay-title-2" data-text="MAGAZINE">MAGAZINE</h1>
-      <div class="hero-meta">
-        <span class="hero-line"></span>
-        <span class="hero-sub">我的作品 <b>2026</b></span>
-        <span class="hero-line"></span>
-      </div>
-      <p class="hero-hand">一本关于奇思妙想的小小刊物 ✻ 请随意翻阅</p>
-      <a href="#about" class="scroll-cue">向下翻页 ↓</a>
-    </div>
-    <div class="hero-tape hero-tape-1" aria-hidden="true"></div>
-    <div class="hero-tape hero-tape-2" aria-hidden="true"></div>
-  </header>
+<!-- 跑马灯 -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>BRANDING</span><i>✻</i><span>POSTER DESIGN</span><i>✻</i><span>ILLUSTRATION</span><i>✻</i><span>IP DESIGN</span><i>✻</i><span>E-COMMERCE</span><i>✻</i>
+    <span>BRANDING</span><i>✻</i><span>POSTER DESIGN</span><i>✻</i><span>ILLUSTRATION</span><i>✻</i><span>IP DESIGN</span><i>✻</i><span>E-COMMERCE</span><i>✻</i>
+  </div>
+</div>
 
-  <!-- ============ 关于 ============ -->
-  <section id="about" class="section about">
-    <div class="section-strap"><span>01 / ABOUT</span><span>关于这一页</span></div>
-    <div class="about-grid">
-      <div class="clay-icons">
-        <div class="clay-icon icon-ps" tabindex="0"><span>Ps</span><small>PHOTOSHOP</small></div>
-        <div class="clay-icon icon-ai" tabindex="0"><span>Ai</span><small>ILLUSTRATOR</small></div>
-        <div class="clay-icon icon-figma" tabindex="0">
-          <span class="figma-dots"><i></i><i></i><i></i><i></i><i></i></span>
-          <small>FIGMA</small>
-        </div>
-        <p class="clay-hint">（按一按，软软的 ↗）</p>
-      </div>
-      <div class="about-text">
-        <h2 class="about-heading">你好，我是<br><span>丁紫妍</span>。</h2>
-        <p class="body-copy">我是一名平面设计师，也是这本小刊物的唯一作者、编辑与装订工。比起精良的印刷，我更喜欢纸张的毛边、胶带歪掉的痕迹，还有手作留下的一点不完美。</p>
-        <p class="body-copy">这里收录了我近期喜欢的作品：海报、IP 形象、卡牌、电商视觉与运营长图。把它们订成一本 zine，希望你喜欢翻它的感觉。</p>
-        <div class="about-facts">
-          <div class="fact"><span class="fact-label">现居 / BASED</span><span class="fact-value">中国 · 上海</span></div>
-          <div class="fact"><span class="fact-label">擅长 / SKILLS</span><span class="fact-value">海报 · IP 设计 · 电商视觉</span></div>
-          <div class="fact"><span class="fact-label">状态 / STATUS</span><span class="fact-value">开放合作中 ●</span></div>
-        </div>
-        <p class="about-sign">— 丁紫妍，2026 年春</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 作品列表：撕下来的杂志内页（真实项目） ============ -->
-  <section id="works" class="section works">
-    <div class="section-strap"><span>02 / WORKS</span><span>撕下来的几页</span></div>
-    <div class="works-stack">
-
-      <!-- p.01 露营海报 -->
-      <article class="zine-page page-flip">
-        <div class="page-torn torn-top" aria-hidden="true"></div>
-        <div class="page-no">p.01</div>
-        <div class="page-content">
-          <div class="gallery gallery-3">
-            <figure class="shot stamp-frame portrait" data-caption="露营海报 01 · 夏天就要玩野">
-              <img src="assets/poster-camp-1.jpg" alt="露营海报：夏天就要玩野" loading="lazy">
-            </figure>
-            <figure class="shot stamp-frame portrait" data-caption="露营海报 02 · 绿野生活计划">
-              <img src="assets/poster-camp-2.jpg" alt="露营海报：绿野生活计划" loading="lazy">
-            </figure>
-            <figure class="shot stamp-frame portrait" data-caption="露营海报 03 · 初夏去野营">
-              <img src="assets/poster-camp-3.jpg" alt="露营海报：初夏去野营" loading="lazy">
-            </figure>
-          </div>
-          <div class="page-text">
-            <span class="page-tag">POSTER SERIES · 2025</span>
-            <h3>露营海报三连</h3>
-            <p class="body-copy">为露营主题活动设计的系列海报。撕纸拼贴、网点与手写标题混搭，把"夏天就要玩野"的松弛感塞进一张纸里。</p>
-            <p class="page-hand">点击图片可放大细看 ↗</p>
-          </div>
-        </div>
-        <div class="page-torn torn-bottom" aria-hidden="true"></div>
-      </article>
-
-      <!-- p.02 产品海报 -->
-      <article class="zine-page page-flip">
-        <div class="page-torn torn-top" aria-hidden="true"></div>
-        <div class="page-no">p.02</div>
-        <div class="page-content reverse">
-          <div class="gallery gallery-3">
-            <figure class="shot stamp-frame portrait" data-caption="产品海报 01 · 护肤精华">
-              <img src="assets/product-1.jpg" alt="产品海报：护肤精华" loading="lazy">
-            </figure>
-            <figure class="shot stamp-frame portrait" data-caption="产品海报 02 · 香水">
-              <img src="assets/product-2.jpg" alt="产品海报：香水" loading="lazy">
-            </figure>
-            <figure class="shot stamp-frame portrait" data-caption="产品海报 03 · 神仙水">
-              <img src="assets/product-3.jpg" alt="产品海报：神仙水" loading="lazy">
-            </figure>
-          </div>
-          <div class="page-text">
-            <span class="page-tag">PRODUCT POSTER · 2025</span>
-            <h3>产品视觉海报</h3>
-            <p class="body-copy">美妆与香氛产品的商业海报。用场景化布景与材质光影突出产品质感，统一中保留 each 单品自己的情绪。</p>
-            <p class="page-hand">光是最好用的道具。</p>
-          </div>
-        </div>
-        <div class="page-torn torn-bottom" aria-hidden="true"></div>
-      </article>
-
-      <!-- p.03 卡牌设计 -->
-      <article class="zine-page page-flip">
-        <div class="page-torn torn-top" aria-hidden="true"></div>
-        <div class="page-no">p.03</div>
-        <div class="page-content">
-          <div class="gallery gallery-1">
-            <figure class="shot stamp-frame portrait" data-caption="卡牌设计 · 十二生肖">
-              <img src="assets/card-zodiac.jpg" alt="十二生肖卡牌设计" loading="lazy">
-            </figure>
-          </div>
-          <div class="page-text">
-            <span class="page-tag">CARD DESIGN · 2026</span>
-            <h3>十二生肖卡牌</h3>
-            <p class="body-copy">以十二生肖为主题的收藏卡牌。复古烫金边框搭配国风插画，从边框纹样到卡背图腾都做了完整的一套视觉系统。</p>
-            <p class="page-hand">每一张都能讲一个故事。</p>
-          </div>
-        </div>
-        <div class="page-torn torn-bottom" aria-hidden="true"></div>
-      </article>
-
-      <!-- p.04 IP 设计（宽版单列） -->
-      <article class="zine-page page-flip">
-        <div class="page-torn torn-top" aria-hidden="true"></div>
-        <div class="page-no">p.04</div>
-        <div class="page-content gallery-wide">
-          <div class="gallery gallery-ip">
-            <figure class="shot stamp-frame wide" data-caption="IP 3D 模型 · 正面与侧面">
-              <img src="assets/ip-3d-model.png" alt="IP 3D 模型展示" loading="lazy">
-            </figure>
-            <figure class="shot stamp-frame wide" data-caption="IP 圆柱体三视图">
-              <img src="assets/ip-3d-cylinder.png" alt="IP 圆柱体三视图" loading="lazy">
-            </figure>
-            <div class="ip-bottom">
-              <figure class="shot stamp-frame portrait" data-caption="IP 海报">
-                <img src="assets/ip-poster.jpg" alt="IP 形象海报" loading="lazy">
-              </figure>
-              <div class="season-row">
-                <figure class="shot stamp-frame season" data-caption="IP 节气图 · 冬">
-                  <img src="assets/ip-season-winter.png" alt="IP 冬季节气图" loading="lazy">
-                </figure>
-                <figure class="shot stamp-frame season" data-caption="IP 节气图 · 秋">
-                  <img src="assets/ip-season-autumn.png" alt="IP 秋季节气图" loading="lazy">
-                </figure>
-                <figure class="shot stamp-frame season" data-caption="IP 节气图 · 春">
-                  <img src="assets/ip-season-spring.png" alt="IP 春季节气图" loading="lazy">
-                </figure>
-              </div>
-            </div>
-          </div>
-          <div class="page-text">
-            <span class="page-tag">IP DESIGN · 2026</span>
-            <h3>小蓝 IP 形象设计</h3>
-            <p class="body-copy">从平面草稿到 3D 立体三视图，再把这只圆滚滚的小家伙放进四季场景里。一个可以被捏来捏去、陪人过日子的 IP。</p>
-            <p class="page-hand">它头顶那根吸管，是它的小天线。</p>
-          </div>
-        </div>
-        <div class="page-torn torn-bottom" aria-hidden="true"></div>
-      </article>
-
-      <!-- p.05 电商直播间 -->
-      <article class="zine-page page-flip">
-        <div class="page-torn torn-top" aria-hidden="true"></div>
-        <div class="page-no">p.05</div>
-        <div class="page-content reverse">
-          <div class="gallery gallery-1">
-            <figure class="shot stamp-frame portrait" data-caption="电商直播间设计 · 吨吨水瓶">
-              <img src="assets/ecommerce-live.jpg" alt="电商直播间设计" loading="lazy">
-            </figure>
-          </div>
-          <div class="page-text">
-            <span class="page-tag">E-COMMERCE · 2026</span>
-            <h3>电商直播间视觉</h3>
-            <p class="body-copy">为露营水杯设计的直播间背景与贴片。信息分层清晰，绿色系呼应户外主题，把满满的卖点塞进一屏还不觉得挤。</p>
-            <p class="page-hand">直播间也要有设计感。</p>
-          </div>
-        </div>
-        <div class="page-torn torn-bottom" aria-hidden="true"></div>
-      </article>
-
-      <!-- p.06 小红书长图 -->
-      <article class="zine-page page-flip">
-        <div class="page-torn torn-top" aria-hidden="true"></div>
-        <div class="page-no">p.06</div>
-        <div class="page-content">
-          <div class="gallery gallery-1">
-            <figure class="shot stamp-frame tall" data-caption="H5 / 小红书新春运营长图">
-              <img src="assets/xiaohongshu-spring.png" alt="H5 新春运营长图" loading="lazy">
-              <span class="tall-hint">↑ 点击看完整长图 ↑</span>
-            </figure>
-          </div>
-          <div class="page-text">
-            <span class="page-tag">H5 / SOCIAL · 2026</span>
-            <h3>新春 H5 长图</h3>
-            <p class="body-copy">春节专题 H5 长图，从"新年第一页"一路铺到互动话题。信息密度高却靠节奏和留白保持可读，配色热闹但不吵。</p>
-            <p class="page-hand">一张图，讲完一整个新年。</p>
-          </div>
-        </div>
-        <div class="page-torn torn-bottom" aria-hidden="true"></div>
-      </article>
-
-      <!-- p.07 展板设计 -->
-      <article class="zine-page page-flip">
-        <div class="page-torn torn-top" aria-hidden="true"></div>
-        <div class="page-no">p.07</div>
-        <div class="page-content gallery-wide">
-          <div class="gallery gallery-3">
-            <figure class="shot stamp-frame portrait" data-caption="展板 · 苏州博物馆（二）">
-              <img src="assets/board-suzhou-2.png" alt="苏州博物馆展板二" loading="lazy">
-            </figure>
-            <figure class="shot stamp-frame portrait" data-caption="展板 · 齐天流韵">
-              <img src="assets/board-qitian.png" alt="齐天流韵展板" loading="lazy">
-            </figure>
-            <figure class="shot stamp-frame portrait" data-caption="展板 · 苏州博物馆（一）">
-              <img src="assets/board-suzhou-1.png" alt="苏州博物馆展板一" loading="lazy">
-            </figure>
-          </div>
-          <div class="page-text">
-            <span class="page-tag">EXHIBITION BOARD · 2026</span>
-            <h3>信息可视化展板</h3>
-            <p class="body-copy">三张知识型展板：苏州博物馆的空间导视与调研分析，以及"齐天流韵"的神话谱系信息图解。把复杂资料压缩进一张有秩序的海报里。</p>
-            <p class="page-hand">信息也可以排得很好看。</p>
-          </div>
-        </div>
-        <div class="page-torn torn-bottom" aria-hidden="true"></div>
-      </article>
-
-      <!-- p.08 活动海报 -->
-      <article class="zine-page page-flip">
-        <div class="page-torn torn-top" aria-hidden="true"></div>
-        <div class="page-no">p.08</div>
-        <div class="page-content reverse">
-          <div class="gallery gallery-promo">
-            <figure class="shot stamp-frame promo-wide" data-caption="天猫活动海报 · 依云好水">
-              <img src="assets/poster-evian.jpg" alt="依云天猫活动海报" loading="lazy">
-            </figure>
-            <figure class="shot stamp-frame portrait" data-caption="抖音活动海报 · 春日好物季">
-              <img src="assets/poster-douyin.jpg" alt="抖音春日好物季活动海报" loading="lazy">
-            </figure>
-          </div>
-          <div class="page-text">
-            <span class="page-tag">CAMPAIGN POSTER · 2026</span>
-            <h3>电商活动海报</h3>
-            <p class="body-copy">天猫与抖音的平台活动视觉。一个用自然场景讲水的故事，一个用春天花园包裹品牌符号，都是为大促而生的热闹画面。</p>
-            <p class="page-hand">卖货的海报，也可以很美。</p>
-          </div>
-        </div>
-        <div class="page-torn torn-bottom" aria-hidden="true"></div>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- ============ 项目详情：Instagram 帖子 ============ -->
-  <section id="detail" class="section detail">
-    <div class="section-strap"><span>03 / DETAILS</span><span>一张贴出来的照片</span></div>
-    <div class="detail-stage">
-      <div class="side-poster poster-left page-flip">
-        <figure class="poster-inner poster-a poster-board" data-caption="展板 · 苏州博物馆（二）">
-          <img src="assets/board-suzhou-2.png" alt="苏州博物馆展板二" loading="lazy">
-        </figure>
-      </div>
-
-      <div class="ig-post page-flip">
-        <div class="ig-head">
-          <div class="ig-avatar">丁</div>
-          <div class="ig-user"><strong>dingziyan.zine</strong><small>天猫活动海报 · 依云好水</small></div>
-          <span class="ig-more">···</span>
-        </div>
-        <figure class="ig-image" data-caption="天猫活动海报 · 依云好水">
-          <img src="assets/poster-evian.jpg" alt="依云天猫活动海报" loading="lazy">
-          <div class="ig-corner-stamp">NO.01</div>
-        </figure>
-        <div class="ig-actions">
-          <span class="ig-icon heart" aria-label="点赞">♥</span>
-          <span class="ig-icon comment" aria-label="评论">✎</span>
-          <span class="ig-icon share" aria-label="分享">➤</span>
-          <span class="ig-icon save" aria-label="收藏">▢</span>
-        </div>
-        <div class="ig-likes">328 likes</div>
-        <div class="ig-caption"><strong>dingziyan.zine</strong> 依云好水，天猫臻选。三张场景化的产品海报，把水源地装进瓶子里。#依云 #天猫海报 #电商视觉</div>
-        <div class="ig-time">2 DAYS AGO</div>
-      </div>
-
-      <div class="side-poster poster-right page-flip">
-        <figure class="poster-inner poster-b poster-board" data-caption="展板 · 齐天流韵">
-          <img src="assets/board-qitian.png" alt="齐天流韵展板" loading="lazy">
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 联系 ============ -->
-  <section id="contact" class="contact">
-    <div class="contact-inner">
-      <span class="contact-kicker">FINAL PAGE / 最后一页</span>
-      <h2 class="contact-title">一起做点<br><span>好玩的</span>吧。</h2>
-      <p class="body-copy">有项目、有想法，或者只是想聊聊纸和胶水——都欢迎写信给我。</p>
-      <div class="contact-links">
-        <a href="mailto:hello@example.com" class="contact-link">EMAIL ↗</a>
-        <a href="#" class="contact-link">INSTAGRAM ↗</a>
-        <a href="#" class="contact-link">BEHANCE ↗</a>
-      </div>
-      <p class="contact-sign">丁紫妍</p>
-      <p class="contact-sign-en">Ding Ziyan</p>
-    </div>
-
-    <div class="fingerprint-band band-bottom" data-parallax aria-hidden="true">
-      <div class="fingerprint-track">
-        <span class="fingerprint-mark alt"></span>
-        <span class="fingerprint-mark"></span>
-        <span class="fingerprint-mark alt"></span>
-        <span class="fingerprint-mark"></span>
-        <span class="fingerprint-mark alt"></span>
-        <span class="fingerprint-mark"></span>
-      </div>
-    </div>
-    <div class="contact-colophon">本刊由丁紫妍手工装订 · 2026 · 印数：仅此一本</div>
-  </section>
-
-  <!-- ============ 灯箱 ============ -->
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="图片预览">
-    <button class="lb-close" aria-label="关闭">&times;</button>
-    <button class="lb-nav lb-prev" aria-label="上一张">&#8249;</button>
-    <figure class="lb-figure">
-      <img src="" alt="">
-      <figcaption></figcaption>
-    </figure>
-    <button class="lb-nav lb-next" aria-label="下一张">&#8250;</button>
+<!-- ============ WORKS：铁盒 ============ -->
+<section id="works" class="works section">
+  <div class="section-head reveal">
+    <p class="eyebrow">[ 01 / selected works ]</p>
+    <h2 class="section-title">装在盒子里的<span class="serif">作品</span></h2>
+    <p class="section-sub">点击铁盒，放大看细节。</p>
   </div>
 
-  <script src="script.js"></script>
+  <div class="tin-grid">
+
+    <article class="tin-card reveal" data-tilt data-category="海报设计">
+      <div class="tin">
+        <div class="tin-lid"><span class="tin-emboss">ROLEAF<br><small>STUDIO</small></span></div>
+        <div class="tin-inside">
+          <img src="assets/poster-camp-2.jpg" alt="露营海报" loading="lazy" data-zoom>
+        </div>
+        <div class="tin-base"></div>
+      </div>
+      <div class="tin-meta">
+        <span class="tin-index">/ 01</span>
+        <h3>野趣露营海报</h3>
+        <p>Camping Poster Series · 2025</p>
+        <div class="tin-tags"><span>海报</span><span>拼贴</span></div>
+      </div>
+    </article>
+
+    <article class="tin-card reveal" data-tilt data-category="IP设计">
+      <div class="tin">
+        <div class="tin-lid"><span class="tin-emboss">LITTLE<br><small>BLUE</small></span></div>
+        <div class="tin-inside">
+          <img src="assets/ip-poster.jpg" alt="IP 形象海报" loading="lazy" data-zoom>
+        </div>
+        <div class="tin-base"></div>
+      </div>
+      <div class="tin-meta">
+        <span class="tin-index">/ 02</span>
+        <h3>小蓝 IP 形象</h3>
+        <p>Character Design · 2026</p>
+        <div class="tin-tags"><span>IP</span><span>3D</span></div>
+      </div>
+    </article>
+
+    <article class="tin-card reveal" data-tilt data-category="卡牌设计">
+      <div class="tin">
+        <div class="tin-lid"><span class="tin-emboss">ZODIAC<br><small>CARDS</small></span></div>
+        <div class="tin-inside">
+          <img src="assets/card-zodiac.jpg" alt="十二生肖卡牌" loading="lazy" data-zoom>
+        </div>
+        <div class="tin-base"></div>
+      </div>
+      <div class="tin-meta">
+        <span class="tin-index">/ 03</span>
+        <h3>十二生肖卡牌</h3>
+        <p>Card Design · 2026</p>
+        <div class="tin-tags"><span>卡牌</span><span>国风</span></div>
+      </div>
+    </article>
+
+    <article class="tin-card reveal" data-tilt data-category="电商视觉">
+      <div class="tin">
+        <div class="tin-lid"><span class="tin-emboss">EVIAN<br><small>CAMPAIGN</small></span></div>
+        <div class="tin-inside">
+          <img src="assets/poster-evian.jpg" alt="依云天猫海报" loading="lazy" data-zoom>
+        </div>
+        <div class="tin-base"></div>
+      </div>
+      <div class="tin-meta">
+        <span class="tin-index">/ 04</span>
+        <h3>依云天猫海报</h3>
+        <p>Campaign Poster · 2026</p>
+        <div class="tin-tags"><span>电商</span><span>海报</span></div>
+      </div>
+    </article>
+
+    <article class="tin-card reveal" data-tilt data-category="展板设计">
+      <div class="tin">
+        <div class="tin-lid"><span class="tin-emboss">MUSEUM<br><small>BOARD</small></span></div>
+        <div class="tin-inside">
+          <img src="assets/board-qitian.png" alt="齐天流韵展板" loading="lazy" data-zoom>
+        </div>
+        <div class="tin-base"></div>
+      </div>
+      <div class="tin-meta">
+        <span class="tin-index">/ 05</span>
+        <h3>信息可视化展板</h3>
+        <p>Exhibition Board · 2026</p>
+        <div class="tin-tags"><span>信息</span><span>展板</span></div>
+      </div>
+    </article>
+
+    <article class="tin-card reveal" data-tilt data-category="产品海报">
+      <div class="tin">
+        <div class="tin-lid"><span class="tin-emboss">PRODUCT<br><small>SHOTS</small></span></div>
+        <div class="tin-inside">
+          <img src="assets/product-1.jpg" alt="产品海报" loading="lazy" data-zoom>
+        </div>
+        <div class="tin-base"></div>
+      </div>
+      <div class="tin-meta">
+        <span class="tin-index">/ 06</span>
+        <h3>产品视觉海报</h3>
+        <p>Product Poster · 2025</p>
+        <div class="tin-tags"><span>产品</span><span>商业</span></div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============ FEATURED：档案袋 + 铁盒拼贴 ============ -->
+<section id="featured" class="featured section">
+  <div class="section-head reveal">
+    <p class="eyebrow">[ 02 / featured project ]</p>
+    <h2 class="section-title">一个项目的<span class="serif">全部</span></h2>
+  </div>
+
+  <div class="featured-tabs reveal" role="tablist">
+    <button class="ftab active" data-tab="camp">野趣露营</button>
+    <button class="ftab" data-tab="ip">小蓝 IP</button>
+    <button class="ftab" data-tab="board">展板设计</button>
+  </div>
+
+  <div class="featured-stage">
+    <!-- 文件夹文档 -->
+    <div class="dossier reveal">
+      <div class="clip" aria-hidden="true"></div>
+      <div class="dossier-inner">
+        <div class="dossier-top">
+          <span class="binder-holes"><i></i><i></i><i></i></span>
+          <span class="dossier-stamp">FILE<br>2026</span>
+        </div>
+        <div class="dossier-body" id="dossierBody">
+          <p class="tag-line" id="dTag">[ branding / redesign ]</p>
+          <h3 id="dTitle">野趣露营</h3>
+          <p class="d-lead" id="dLead">一个关于户外与自由的视觉企划。</p>
+          <p id="dText">从海报到周边，把露营的松弛感装进一套统一的视觉语言里。柔和的色调与手作质感，让每一次放大都像在翻一本旅行笔记。</p>
+          <div class="d-softwares">
+            <span>softwares</span>
+            <p id="dSoft">Adobe Illustrator<br>Adobe Photoshop</p>
+          </div>
+        </div>
+        <div class="dossier-foot"><span>DING ZIYAN</span><span id="dNum">01 / 03</span></div>
+      </div>
+      <div class="string" aria-hidden="true"></div>
+      <div class="button-seal" aria-hidden="true"><i></i><i></i></div>
+    </div>
+
+    <!-- 铁盒拼贴展示 -->
+    <div class="tray-wrap reveal">
+      <div class="tray">
+        <div class="tray-rim"></div>
+        <div class="tray-grid" id="trayGrid">
+          <figure class="tray-shot big" data-zoom><img src="assets/poster-camp-1.jpg" alt="露营海报一" loading="lazy"></figure>
+          <figure class="tray-shot" data-zoom><img src="assets/poster-camp-2.jpg" alt="露营海报二" loading="lazy"></figure>
+          <figure class="tray-shot" data-zoom><img src="assets/poster-camp-3.jpg" alt="露营海报三" loading="lazy"></figure>
+        </div>
+        <span class="tray-label">THE COLLECTION — NO.01</span>
+      </div>
+      <div class="floating-sticker s1">✻ SELECTED</div>
+      <div class="floating-sticker s2">Made with care</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="about section">
+  <div class="section-head reveal">
+    <p class="eyebrow">[ 03 / about me ]</p>
+    <h2 class="section-title">你好，我是<span class="serif">丁紫妍</span></h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-card reveal" data-tilt>
+      <div class="polaroid">
+        <img src="assets/ip-season-spring.png" alt="个人形象插画" loading="lazy">
+        <span class="polaroid-cap">this is me ~</span>
+      </div>
+      <span class="tape tape-a" aria-hidden="true"></span>
+      <span class="tape tape-b" aria-hidden="true"></span>
+    </div>
+    <div class="about-text reveal">
+      <p class="about-quote">"Design is a little box of surprises."</p>
+      <p>我是一名平面设计师，喜欢把生活里不起眼的小事做成有温度的视觉。品牌、海报、插画、动态图形——只要能让人嘴角上扬，我都愿意试一试。</p>
+      <p>比起完美，我更在意作品里有没有"人"的痕迹：一点手作的不整齐、一点意外的拼贴、一点藏在细节里的幽默。</p>
+      <div class="skill-list">
+        <span>Brand Identity</span><span>Poster</span><span>Illustration</span>
+        <span>IP Design</span><span>E-commerce</span><span>Art Direction</span>
+      </div>
+      <div class="about-tools">
+        <div class="tool"><b>Ai</b><span>Illustrator</span></div>
+        <div class="tool"><b>Ps</b><span>Photoshop</span></div>
+        <div class="tool"><b>F</b><span>Figma</span></div>
+        <div class="tool"><b>Id</b><span>InDesign</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="contact section">
+  <div class="contact-card reveal">
+    <p class="eyebrow">[ 04 / say hello ]</p>
+    <h2>有个好点子？<br><span class="serif">寄给我吧。</span></h2>
+    <p class="contact-lead">无论是合作、委托，还是只想打个招呼——我的信箱随时为你打开。</p>
+    <a href="mailto:hello@example.com" class="contact-mail magnetic">hello@example.com <span>↗</span></a>
+    <div class="contact-links">
+      <a href="#" class="magnetic">Instagram ↗</a>
+      <a href="#" class="magnetic">Behance ↗</a>
+      <a href="#" class="magnetic">小红书 ↗</a>
+    </div>
+    <div class="contact-seal" aria-hidden="true">✿</div>
+  </div>
+  <footer class="footer">
+    <span>© 2026 丁紫妍 · Crafted with curiosity</span>
+    <span>DESIGNED &amp; MADE BY DING ZIYAN</span>
+  </footer>
+</section>
+
+<!-- 灯箱 -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="图片预览">
+  <button class="lb-close" aria-label="关闭">关闭 <span aria-hidden="true">✕</span></button>
+  <button class="lb-prev" aria-label="上一张">‹</button>
+  <figure class="lb-figure"><img src="" alt=""><figcaption></figcaption></figure>
+  <button class="lb-next" aria-label="下一张">›</button>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

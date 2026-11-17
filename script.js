@@ -1,154 +1,276 @@
 /* ============================================
-   ZINE PORTFOLIO — 交互
+   DING ZIYAN PORTFOLIO — INTERACTIONS
    ============================================ */
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ---------- 移动端菜单（小屏隐藏导航时，点击 logo 展开简易列表） ---------- */
-  const nav = document.querySelector('.nav');
-  const logo = document.querySelector('.nav-logo');
-  const links = document.querySelector('.nav-links');
-  if (nav && logo && links && window.matchMedia('(max-width: 640px)').matches) {
-    logo.setAttribute('title', '点击展开导航');
-    logo.style.cursor = 'pointer';
-    logo.addEventListener('click', (e) => {
-      e.preventDefault();
-      const open = links.style.display === 'flex';
-      links.style.display = open ? 'none' : 'flex';
-      links.style.position = 'absolute';
-      links.style.top = '72px';
-      links.style.left = '0';
-      links.style.width = '100%';
-      links.style.flexDirection = 'column';
-      links.style.gap = '0';
-      links.style.background = 'var(--paper)';
-      links.style.borderBottom = '2px solid var(--deep)';
-      links.style.padding = '10px 20px';
-      links.querySelectorAll('a').forEach((a) => {
-        a.style.padding = '10px 0';
-        a.style.borderBottom = '1px dashed rgba(45,45,68,0.3)';
-      });
+  const isFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- 1. 自定义光标 ---------- */
+  if (isFine && !reduce) {
+    const dot = document.querySelector('.cursor-dot');
+    const ring = document.querySelector('.cursor-ring');
+    let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
+    document.addEventListener('mousemove', (e) => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
     });
-    links.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => { links.style.display = 'none'; }));
+    const loop = () => {
+      rx += (mx - rx) * .35; ry += (my - ry) * .35;
+      ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+      requestAnimationFrame(loop);
+    };
+    loop();
+    document.querySelectorAll('a,button,.tin-card,.env-seal').forEach((el) => {
+      el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+    });
+    document.querySelectorAll('[data-zoom]').forEach((el) => {
+      el.addEventListener('mouseenter', () => { ring.classList.add('hover'); ring.querySelector('span').textContent = 'VIEW'; });
+      el.addEventListener('mouseleave', () => { ring.classList.remove('hover'); ring.querySelector('span').textContent = 'VIEW'; });
+    });
   }
 
-  /* ---------- 平滑滚动 ---------- */
+  /* ---------- 2. 滚动进度 + 导航状态 ---------- */
+  const bar = document.querySelector('.scroll-progress');
+  const nav = document.getElementById('nav');
+  const onScroll = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.width = `${(scrollY / max) * 100}%`;
+    nav.classList.toggle('scrolled', scrollY > 40);
+  };
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- 3. 导航平滑滚动 + 高亮 ---------- */
+  const sections = ['top', 'works', 'featured', 'about', 'contact'].map(id => document.getElementById(id));
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
     a.addEventListener('click', (e) => {
-      const id = a.getAttribute('href');
-      if (id === '#') return;
-      const target = document.querySelector(id);
-      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      const id = a.getAttribute('href').slice(1);
+      const t = document.getElementById(id);
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
     });
   });
-
-  /* ---------- 翻杂志质感：滚动时卡片缓慢切换 ---------- */
-  const flips = document.querySelectorAll('.page-flip');
   if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries, obs) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          obs.unobserve(entry.target);
+    const navIO = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+          const link = document.querySelector(`.nav-link[href="#${en.target.id}"]`);
+          if (link) link.classList.add('active');
         }
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-    flips.forEach((el) => io.observe(el));
-  } else {
-    flips.forEach((el) => el.classList.add('visible'));
+    }, { threshold: .45 });
+    sections.forEach(s => s && navIO.observe(s));
   }
 
-  /* ---------- 指纹纹理鼠标视差（桌面端） ---------- */
-  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
-      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const bands = document.querySelectorAll('[data-parallax]');
-    let raf = null;
-    window.addEventListener('mousemove', (e) => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        const nx = (e.clientX / window.innerWidth - 0.5) * 2;
-        const ny = (e.clientY / window.innerHeight - 0.5) * 2;
-        bands.forEach((band, i) => {
-          const track = band.querySelector('.fingerprint-track');
-          if (!track) return;
-          const dir = i % 2 === 0 ? 1 : -1;
-          track.style.setProperty('--fp-x', `${(nx * 18 * dir).toFixed(1)}px`);
-          track.style.setProperty('--fp-y', `${(ny * 8 * dir).toFixed(1)}px`);
-        });
-        raf = null;
+  /* ---------- 4. 滚动揭示 ---------- */
+  const reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach((en, i) => {
+        if (en.isIntersecting) {
+          en.target.style.transitionDelay = `${(i % 3) * .09}s`;
+          en.target.classList.add('in');
+          obs.unobserve(en.target);
+        }
       });
-    }, { passive: true });
+    }, { threshold: .12, rootMargin: '0px 0px -50px 0px' });
+    reveals.forEach(el => io.observe(el));
+  } else {
+    reveals.forEach(el => el.classList.add('in'));
   }
 
-  /* ---------- 橡皮泥图标按压效果 ---------- */
-  document.querySelectorAll('.clay-icon').forEach((icon) => {
-    const press = () => icon.classList.add('pressed');
-    const release = () => icon.classList.remove('pressed');
-    icon.addEventListener('mousedown', press);
-    icon.addEventListener('mouseup', release);
-    icon.addEventListener('mouseleave', release);
-    icon.addEventListener('touchstart', press, { passive: true });
-    icon.addEventListener('touchend', release);
-    icon.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); press(); } });
-    icon.addEventListener('keyup', release);
+  /* ---------- 5. 数字计数 ---------- */
+  const counters = document.querySelectorAll('[data-count]');
+  if ('IntersectionObserver' in window) {
+    const cIO = new IntersectionObserver((entries, obs) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        const el = en.target;
+        const target = +el.dataset.count;
+        let cur = 0;
+        const step = Math.max(1, Math.round(target / 30));
+        const tick = setInterval(() => {
+          cur += step;
+          if (cur >= target) { el.textContent = target; clearInterval(tick); }
+          else el.textContent = cur;
+        }, 28);
+        obs.unobserve(el);
+      });
+    }, { threshold: .6 });
+    counters.forEach(c => cIO.observe(c));
+  }
+
+  /* ---------- 6. 信封打开 ---------- */
+  const envWrap = document.getElementById('envelope');
+  const seal = document.getElementById('envSeal');
+  if (envWrap && seal) {
+    seal.addEventListener('click', () => envWrap.classList.toggle('open'));
+  }
+  /* 首页装饰视差 */
+  if (isFine && !reduce) {
+    const decos = document.querySelectorAll('.env-deco');
+    document.querySelector('.hero').addEventListener('mousemove', (e) => {
+      const nx = (e.clientX / innerWidth - .5) * 2;
+      const ny = (e.clientY / innerHeight - .5) * 2;
+      decos.forEach((d) => {
+        const depth = parseFloat(d.dataset.depth) * 100;
+        d.style.translate = `${nx * depth}px ${ny * depth}px`;
+      });
+    });
+  }
+
+  /* ---------- 7. 铁盒：点盖子下滑消失 -> 点盒内图片放大 ---------- */
+  document.querySelectorAll('.tin-card').forEach((card) => {
+    const tin = card.querySelector('.tin');
+    const lid = card.querySelector('.tin-lid');
+    const img = card.querySelector('.tin-inside img');
+
+    // 点盖子：打开盒子（盖子下滑消失，露出图片）
+    lid.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!card.classList.contains('open')) card.classList.add('open');
+    });
+
+    // 打开后点盒内图片：弹出大图
+    if (img) {
+      img.addEventListener('click', (e) => {
+        if (!card.classList.contains('open')) return;
+        e.stopPropagation();
+        const idx = zoomList.indexOf(img);
+        if (idx >= 0) openLB(idx);
+      });
+    }
+
+    // 轻微 hover 倾斜（保留手感，不影响外形）
+    if (isFine && !reduce) {
+      card.addEventListener('mousemove', (e) => {
+        const r = tin.getBoundingClientRect();
+        const nx = (e.clientX - r.left) / r.width - .5;
+        const ny = (e.clientY - r.top) / r.height - .5;
+        tin.style.transform = `rotateY(${nx * 5}deg) rotateX(${-ny * 5}deg)`;
+      });
+      card.addEventListener('mouseleave', () => { tin.style.transform = ''; });
+    }
   });
 
-  /* ---------- IG 图标点赞切换 ---------- */
-  const heart = document.querySelector('.ig-icon.heart');
-  if (heart) {
-    heart.addEventListener('click', () => {
-      const liked = heart.classList.toggle('liked');
-      heart.textContent = liked ? '♥' : '♡';
-      heart.style.transform = liked ? 'scale(1.35)' : 'scale(1)';
-      setTimeout(() => { heart.style.transform = ''; }, 180);
+  /* ---------- 8. 特写标签切换 ---------- */
+  const tabData = {
+    camp: {
+      tag: '[ branding / redesign ]', title: '野趣露营',
+      lead: '一个关于户外与自由的视觉企划。',
+      text: '从海报到周边，把露营的松弛感装进一套统一的视觉语言里。柔和的色调与手作质感，让每一次放大都像在翻一本旅行笔记。',
+      soft: 'Adobe Illustrator<br>Adobe Photoshop', num: '01 / 03',
+      imgs: ['assets/poster-camp-1.jpg', 'assets/poster-camp-2.jpg', 'assets/poster-camp-3.jpg'],
+      alts: ['露营海报一', '露营海报二', '露营海报三']
+    },
+    ip: {
+      tag: '[ character / 3d ]', title: '小蓝 IP 形象',
+      lead: '从平面到立体的一只圆滚滚。',
+      text: '从草稿到 3D 三视图，再把它放进四季场景里。一个可以被捏来捏去、陪人过日子的 IP 形象，头顶那根吸管是它的小天线。',
+      soft: 'Adobe Illustrator<br>Adobe After Effects', num: '02 / 03',
+      imgs: ['assets/ip-poster.jpg', 'assets/ip-3d-model.png', 'assets/ip-3d-cylinder.png'],
+      alts: ['IP 海报', 'IP 3D 模型', 'IP 三视图']
+    },
+    board: {
+      tag: '[ information / exhibition ]', title: '信息可视化展板',
+      lead: '把复杂资料压缩进一张海报。',
+      text: '苏州博物馆的空间导视与调研分析，以及「齐天流韵」的神话谱系信息图解。在严谨的信息层级里，寻找视觉的节奏与呼吸。',
+      soft: 'Adobe InDesign<br>Adobe Illustrator', num: '03 / 03',
+      imgs: ['assets/board-suzhou-1.png', 'assets/board-suzhou-2.png', 'assets/board-qitian.png'],
+      alts: ['苏州博物馆展板一', '苏州博物馆展板二', '齐天流韵展板']
+    }
+  };
+
+  const ftabs = document.querySelectorAll('.ftab');
+  const dossierBody = document.getElementById('dossierBody');
+  const trayGrid = document.getElementById('trayGrid');
+  ftabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      ftabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const d = tabData[tab.dataset.tab];
+      document.getElementById('dTag').textContent = d.tag;
+      document.getElementById('dTitle').textContent = d.title;
+      document.getElementById('dLead').textContent = d.lead;
+      dossierBody.querySelector('p:not(.tag-line):not(.d-lead)').textContent = d.text;
+      document.getElementById('dSoft').innerHTML = d.soft;
+      document.getElementById('dNum').textContent = d.num;
+      trayGrid.innerHTML = d.imgs.map((src, i) =>
+        `<figure class="tray-shot${i === 0 ? ' big' : ''}" data-zoom><img src="${src}" alt="${d.alts[i]}" loading="lazy"></figure>`
+      ).join('');
+      dossierBody.classList.remove('fade-swap'); void dossierBody.offsetWidth; dossierBody.classList.add('fade-swap');
+      trayGrid.classList.remove('fade-swap'); void trayGrid.offsetWidth; trayGrid.classList.add('fade-swap');
+      bindZoom();
+    });
+  });
+
+  /* ---------- 9. 磁吸按钮 ---------- */
+  if (isFine && !reduce) {
+    document.querySelectorAll('.magnetic').forEach((el) => {
+      el.addEventListener('mousemove', (e) => {
+        const r = el.getBoundingClientRect();
+        const nx = e.clientX - (r.left + r.width / 2);
+        const ny = e.clientY - (r.top + r.height / 2);
+        el.style.transform = `translate(${nx * .22}px, ${ny * .22}px)`;
+      });
+      el.addEventListener('mouseleave', () => { el.style.transform = ''; });
     });
   }
 
-  /* ---------- 图片灯箱：点击放大 / 左右切换 / ESC 关闭 ---------- */
+  /* ---------- 10. 灯箱 ---------- */
   const lightbox = document.getElementById('lightbox');
-  if (lightbox) {
-    const lbImg = lightbox.querySelector('.lb-figure img');
-    const lbCap = lightbox.querySelector('.lb-figure figcaption');
-    const lbClose = lightbox.querySelector('.lb-close');
-    const lbPrev = lightbox.querySelector('.lb-prev');
-    const lbNext = lightbox.querySelector('.lb-next');
-    const zoomables = Array.from(
-      document.querySelectorAll('.shot[data-caption], .poster-inner[data-caption], .ig-image[data-caption]')
-    );
-    let lbIndex = 0;
+  const lbImg = lightbox.querySelector('.lb-figure img');
+  const lbCap = lightbox.querySelector('.lb-figure figcaption');
+  let zoomList = [], zoomIndex = 0;
 
-    const showImage = (i) => {
-      if (!zoomables.length) return;
-      lbIndex = (i + zoomables.length) % zoomables.length;
-      const el = zoomables[lbIndex];
-      const img = el.querySelector('img');
-      lbImg.src = img ? img.src : '';
-      lbImg.alt = img ? img.alt : '';
-      lbCap.textContent = el.dataset.caption || '';
-    };
-    const openLB = (i) => {
-      showImage(i);
-      lightbox.classList.add('open');
-      lightbox.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('lb-open');
-      lbClose.focus();
-    };
-    const closeLB = () => {
-      lightbox.classList.remove('open');
-      lightbox.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('lb-open');
-    };
-
-    zoomables.forEach((el, i) => el.addEventListener('click', () => openLB(i)));
-    lbClose.addEventListener('click', closeLB);
-    lbPrev.addEventListener('click', () => showImage(lbIndex - 1));
-    lbNext.addEventListener('click', () => showImage(lbIndex + 1));
-    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLB(); });
-    document.addEventListener('keydown', (e) => {
-      if (!lightbox.classList.contains('open')) return;
-      if (e.key === 'Escape') closeLB();
-      if (e.key === 'ArrowLeft') showImage(lbIndex - 1);
-      if (e.key === 'ArrowRight') showImage(lbIndex + 1);
+  // 取图片元素：data-zoom 可能标在 img 本身，也可能标在包裹容器上
+  function getZoomImg(el) {
+    if (!el) return null;
+    return el.tagName === 'IMG' ? el : el.querySelector('img');
+  }
+  function fillLB(i) {
+    if (!zoomList.length) return;
+    zoomIndex = (i + zoomList.length) % zoomList.length;
+    const img = getZoomImg(zoomList[zoomIndex]);
+    if (!img) return;
+    lbImg.src = img.currentSrc || img.src;
+    lbImg.alt = img.alt || '';
+    lbCap.textContent = img.alt || '';
+  }
+  function bindZoom() {
+    zoomList = Array.from(document.querySelectorAll('[data-zoom]'));
+    zoomList.forEach((el, i) => {
+      el.onclick = (e) => { e.stopPropagation(); openLB(i); };
     });
   }
+  function openLB(i) {
+    if (!zoomList.length) return;
+    fillLB(i);
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('lb-open');
+  }
+  function closeLB() {
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('lb-open');
+  }
+  function step(dir) {
+    if (!zoomList.length) return;
+    fillLB(zoomIndex + dir);
+  }
+  bindZoom();
+  lightbox.querySelector('.lb-close').addEventListener('click', closeLB);
+  lightbox.querySelector('.lb-prev').addEventListener('click', () => step(-1));
+  lightbox.querySelector('.lb-next').addEventListener('click', () => step(1));
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLB(); });
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLB();
+    if (e.key === 'ArrowLeft') step(-1);
+    if (e.key === 'ArrowRight') step(1);
+  });
 
 });
